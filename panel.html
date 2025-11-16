@@ -1,3 +1,10 @@
+<script>
+  // Verificar si el admin está logueado
+  if(localStorage.getItem("adminLogged") !== "true"){
+      // Si no está logueado, redirigir a admin.html
+      window.location.href = "admin.html";
+  }
+</script>
 <!DOCTYPE html>
 <html lang="es">
 <head>
