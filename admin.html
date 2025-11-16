@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel Admin - LaTAK Store</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+        .panel {
+            max-width: 850px;
+            margin: 40px auto;
+            background: rgba(0, 0, 30, 0.75);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 174, 255, 0.4);
+            box-shadow: 0 0 15px #00baff;
+        }
+        h2 {
+            text-align: center;
+            color: #00baff;
+            text-shadow: 0 0 10px #00baff;
+        }
+        input, button {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            margin-top: 10px;
+        }
+        button {
+            background: linear-gradient(90deg, #00baff, #ff2bc6);
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 0 10px #00baff, 0 0 10px #ff2bc6;
+            transition: 0.3s;
+        }
+        button:hover {
+            transform: scale(1.05);
+        }
+        table {
+            width: 100%;
+            margin-top: 25px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: left;
+        }
+        th {
+            color: #00baff;
+        }
+        .deleteBtn {
+            background: #ff2bc6;
+        }
+    </style>
+</head>
+<body>
+    <header class="nav">
+        <h1 class="logo">LaTAK <span>Admin</span></h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="freefire.html">Productos</a>
+            <a href="#" onclick="logoutAdmin()">Salir</a>
+        </nav>
+    </header><div class="panel">
+    <h2>Administrar Productos</h2>
+
+    <input id="nombre" type="text" placeholder="Nombre del producto (Ej: 100 Diamantes)">
+    <input id="precio" type="number" placeholder="Precio en MXN">
+    <button onclick="agregarProducto()">Agregar producto</button>
+
+    <h2 style="margin-top:30px;">Productos añadidos</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody id="tablaProductos"></tbody>
+    </table>
+</div>
+
+<script src="firebase.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
