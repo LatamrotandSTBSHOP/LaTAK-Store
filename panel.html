@@ -28,6 +28,7 @@
 
     <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
     <script>
@@ -43,6 +44,7 @@
         };
 
         const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
         const db = firebase.database();
 
         // Verifica si el admin está logueado
@@ -53,7 +55,7 @@
         // Cerrar sesión
         function logout(){
             localStorage.removeItem("adminLogged");
-            window.location.href = "index.html";
+            window.location.href = "admin.html";
         }
 
         // Agregar producto
