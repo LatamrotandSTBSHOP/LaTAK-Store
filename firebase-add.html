@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agregar Producto - LATAM-STORE</title>
+<style>
+body {
+    background-color: #0d0d0d;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+input, button {
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+}
+input {
+    width: 200px;
+}
+button {
+    background: #ff00ff;
+    color: #fff;
+    cursor: pointer;
+}
+button:hover {
+    background: #ff66ff;
+}
+h2 {
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff;
+}
+</style>
+</head>
+<body>
+<h2>Agregar Producto a Firebase</h2>
+<input type="text" id="name" placeholder="Nombre del producto">
+<input type="number" id="price" placeholder="Precio">
+<button onclick="addProduct()">Agregar</button>
+<p id="msg"></p>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyARKe_fiXphpqc_6QbbcGo4yMI9FoJClUw",
+  authDomain: "latak-store.firebaseapp.com",
+  databaseURL: "https://latak-store-default-rtdb.firebaseio.com",
+  projectId: "latak-store",
+  storageBucket: "latak-store.firebasestorage.app",
+  messagingSenderId: "37124193954",
+  appId: "1:37124193954:web:f0720f148e160b711fa1fb"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+function addProduct() {
+    const name = document.getElementById("name").value.trim();
+    const price = parseFloat(document.getElementById("price").value);
+
+    if (!name || isNaN(price)) {
+        document.getElementById("msg").textContent = "Llena todos los campos correctamente";
+        return;
+    }
+
+    db.ref('products').push({ name, price })
+      .then(() => {
+          document.getElementById("msg").textContent = "Producto agregado correctamente ✅";
+          document.getElementById("name").value = "";
+          document.getElementById("price").value = "";
+      })
+      .catch(err => {
+          document.getElementById("msg").textContent = "Error: " + err.message;
+      });
+}
+</script>
+</body>
+</html>
