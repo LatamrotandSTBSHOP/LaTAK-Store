@@ -1,0 +1,47 @@
+<!DOCTYPE html><html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comprar - LaTAK Store</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header class="nav">
+        <h1 class="logo">LaTAK <span>Store</span></h1>
+        <nav>
+            <a href="index.html">Inicio</a>
+            <a href="freefire.html">Free Fire</a>
+            <a href="pago.html">Comprar</a>
+            <a href="login.html">Admin</a>
+        </nav>
+    </header><section class="productos">
+    <h2>Finalizar compra</h2>
+    <p>Llena los datos y envía comprobante a WhatsApp para completar tu pedido.</p>
+
+    <div class="card" style="max-width:500px; margin:auto; text-align:left;">
+        <label>Selecciona producto</label>
+        <select id="producto" class="btn" style="width:100%; margin-top:10px;">
+            <option>Cargando productos...</option>
+        </select>
+
+        <label style="margin-top:15px; display:block;">ID del jugador</label>
+        <input id="playerid" type="text" placeholder="Ingresa tu ID" style="width:100%; padding:10px; border-radius:8px; margin-top:5px;">
+
+        <label style="margin-top:15px; display:block;">Nombre dentro del juego</label>
+        <input id="nickname" type="text" placeholder="Tu nombre en Free Fire" style="width:100%; padding:10px; border-radius:8px; margin-top:5px;">
+
+        <h3 style="margin-top:25px;">Método de pago:</h3>
+        <p><b>Titular:</b> Marcia Florencia O.<br>
+        <b>Banco:</b> Spin by OXXO<br>
+        <b>CLABE:</b> 728969000152054398</p>
+
+        <p style="margin-top:20px;">Después del pago, envía tu comprobante:</p>
+        <a id="btnWhatsapp" class="btn" href="#" target="_blank">Enviar comprobante por WhatsApp</a>
+    </div>
+</section>
+
+<script src="firebase.js"></script>
+<script src="script.js"></script>
+
+</body>
+  </html>
