@@ -1,0 +1,106 @@
+<!-- index.html: Login + acceso a la tienda --><!DOCTYPE html><html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LATAM STORE - Login</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="firebase.js"></script>
+</head>
+<body>
+  <div class="login-container">
+    <h1>LATAM STORE</h1><input id="email" type="email" placeholder="Correo" />
+<input id="password" type="password" placeholder="Contraseña" />
+<button id="loginEmail">Iniciar sesión</button>
+
+<p>o</p>
+<button id="loginGoogle">Iniciar con Google</button>
+
+<p>No tienes cuenta? <button id="registerEmail">Crear cuenta</button></p>
+
+<script type="module">
+  import { 
+    auth,
+    signInWithPopup,
+    googleProvider,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword
+  } from './firebase.js';
+
+  const loginGoogle = document.getElementById("loginGoogle");
+  const loginEmail = document.getElementById("loginEmail");
+  const registerEmail = document.getElementById("registerEmail");
+
+  loginGoogle.onclick = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+      window.location = "tienda.html";
+    } catch (e) { alert(e.message); }
+  };
+
+  loginEmail.onclick = async () => {
+    const email = document.getElementById("email").value;
+    const pass = document.getElementById("password").value;
+    try {
+      await signInWithEmailAndPassword(auth, email, pass);
+      window.location = "tienda.html";
+    } catch (e) { alert(e.message); }
+  };
+
+  registerEmail.onclick = async () => {
+    const email = document.getElementById("email").value;
+    const pass = document.getElementById("password").value;
+    try {
+      await createUserWithEmailAndPassword(auth, email, pass);
+      alert("Cuenta creada, ya puedes iniciar sesión.");
+    } catch (e) { alert(e.message); }
+  };
+</script>
+
+  </div>
+</body>
+</html><!-- tienda.html: Mostrar precios desde Firebase --><!DOCTYPE html><html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LATAM STORE - Tienda</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="module" src="firebase.js"></script>
+</head>
+<body>
+  <div class="store-container">
+    <h1>Compra de Diamantes</h1>
+    <div id="lista-precios">Cargando precios...</div><script type="module">
+  import { auth, onAuthStateChanged, db, ref, get } from './firebase.js';
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) return window.location = "index.html";
+
+    const preciosRef = ref(db, 'precios/');
+    const snapshot = await get(preciosRef);
+
+    if (!snapshot.exists()) {
+      document.getElementById("lista-precios").innerHTML = "No hay precios aún.";
+      return;
+    }
+
+    let html = "";
+    const precios = snapshot.val();
+
+    Object.keys(precios).forEach(id => {
+      html += `
+        <div class='producto'>
+          <h3>${precios[id].nombre}</h3>
+          <p>${precios[id].cantidad} Diamantes</p>
+          <p><strong>$${precios[id].precio} MXN</strong></p>
+          <button onclick="alert('Envia captura del pago a WhatsApp: +52 6688365695')">Comprar</button>
+        </div>
+      `;
+    });
+
+    document.getElementById("lista-precios").innerHTML = html;
+  });
+</script>
+
+  </div>
+</body>
+  </html>
